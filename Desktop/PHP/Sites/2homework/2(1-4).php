@@ -72,27 +72,10 @@ function subtraction($num1, $num2){
 };
 
 function MathOperation($num1, $num2, $operation){
-	switch ($operation) {
-		case 'add':
-			return multiply($num1, $num2);
-			break;
-		case 'substract':
-			return subtraction($num1, $num2);
-			break;
-		case 'multiply':
-			return multiply($num1, $num2);
-			break;
-		case 'devide':
-			return devision($num1,$num2);
-			break;
-		
-		default:
-			echo 'Choose math operation(add, substract, multiply, devide)';
-			break;
-	};
+	return $operation($num1, $num2);
 };
 
-
+echo MathOperation(2, 4, 'summary');
 
 
     
