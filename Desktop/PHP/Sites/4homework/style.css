@@ -1,0 +1,14 @@
+.container{
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    
+    background-color: darkgrey;
+
+}
+
+
+img {
+    width: 150px;
+    height: 100px;
+}

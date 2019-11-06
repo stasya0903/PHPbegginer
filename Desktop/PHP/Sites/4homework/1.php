@@ -1,0 +1,5 @@
+<?php 
+
+$pictures = scandir('./img');
+
+ ?>
