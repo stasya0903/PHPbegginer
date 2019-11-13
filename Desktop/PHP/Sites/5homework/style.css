@@ -1,0 +1,33 @@
+
+
+
+
+.container{
+    width: 100vw;
+    height: 140vh;
+    display: flex;
+    flex-wrap: wrap;
+    
+    background-color: darkgrey;
+
+}
+
+
+.smallImg {
+    width: 150px;
+    height: 100px;
+}
+
+.singlePic {
+display: flex;
+flex-wrap: wrap;
+margin: 20vh 25vw;
+}
+
+.comeBackBtn {
+	width: 100px;
+	height: 50px;
+	margin-left: 250px;
+	margin-top: 50px;
+    background-color: pink;
+}
