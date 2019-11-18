@@ -1,0 +1,52 @@
+
+
+
+
+.container{
+    width: 100vw;
+    height: 200vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-top: 20px;
+    background-color: darkgrey;
+
+}
+
+
+.smallImg {
+    width: 300px;
+    height: 250px;
+}
+
+.singlePic {
+
+    width: 300px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.comeBackBtn {
+	width: 100px;
+	height: 50px;
+	margin-left: 100px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+	
+    background-color: pink;
+}
+
+.productDescription  {
+    text-align: center;
+
+}
+
+.feedback {
+    width: 600px;
+    border: 1px solid pink;
+    text-align: center;
+    margin-left: -150px;
+
+}
