@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 include __DIR__ . '/config/bd.php';
 include_once ('engine/functions.php');
 

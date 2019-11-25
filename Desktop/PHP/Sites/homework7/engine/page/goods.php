@@ -3,88 +3,180 @@ function indexAction()
 {
     $forGood = mysqli_query(connect(), "SELECT * FROM `goods`");
 
-    $galleryTemplate = " ";
+    $galleryTemplate = " <div class=\"container\">";
 
     while ($product = mysqli_fetch_assoc($forGood)) {
 
         $galleryTemplate .=
 
-            '<div class="picture">' .
+                    '<div class="card product " style="width: 18rem;" >' .
 
-            '<img  class="smallImg" src="img/' . "image" . $product["id_product"] . ".jpeg" . '">' .
-            '<h3>' . $product["name_product"] . '</h3>' .
-            '<h3>' . $product["price_product"] . '</h3>' .
-            '<a href="' . '?p=goods&&a=add&&id=' . $product['id_product'] . '">' .
-            '<button class="comeBackBtn">Добавить в корзину</button>' . "</a>" .
-            '<a href="' . '?p=goods&&a=delete&&id=' . $product['id_product'] . '">' .
-            '<button class="comeBackBtn">Удалить из корзины</button>' . "</a>" .
-            "</div>";
+                    " {{OPTION1}}" .
+
+                        '<img  class="smallImg card-img-top" src="img/' . "image" . $product["id_product"] . ".jpeg" . '">'
+                        . "</a>" .
+
+                        '<div class="card-body">'.
+                            '<h5 class="card-title">' . $product["name_product"] . '</h5>' .
+                            '<p class="card-text">' . $product["price_product"] . '</p>' .
+                        " {{OPTION2}}" .
+                        "</div>".
+
+                    "</div>"
+            ;
+        $galleryTemplate = str_replace(["{{OPTION1}}", "{{OPTION2}}"], getActionsForProduct($product['id_product']),$galleryTemplate);
     };
 
-    $html = file_get_contents(dirname(__DIR__) . '/tmpl/galleryView.html');
-    return str_replace('{{pictures}}', $galleryTemplate , $html);
+    $galleryTemplate .= '</div>';
+
+    return $galleryTemplate;
 
 
 }
 
 function oneAction()
 {
-    return 'Продукт';
+    $id = $_GET["id"];
+   $product = getProductAction($id);
+
+   return $ProductTemplate =
+
+            '<div class="card" style="width:35rem" >' .
+
+                '<img  class="card-img-top" src="img/' . "image" . $product["id_product"] . ".jpeg" . '">'.
+
+
+
+                    '<div class="card-body">'.
+                        '<h5 class="card-title">' . $product["name_product"] . '</h5>' .
+                        '<p class="card-text">' . $product["price_product"] . '</p>' .
+                        '<p class="card-text">' . $product["description_short"] . '</p>' .
+
+                        "<button class=\"comeBackBtn\" onclick=\"addGoods({$id})\">Добавить в корзину</button>" .
+
+                    "</div>".
+
+            "</div>".
+
+       '<script src="js/js.js"></script>';
 }
 
-function addAction()
-{
-    session_start();
-    $id = $_GET['id'];
+function changeProductAction(){
+
+    $id = $_GET["id"];
     $product = getProductAction($id);
 
-    if ($_SESSION['goods'][$id]) {
-        $_SESSION['goods'][$id]["count"] += 1;
+    if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
-    } else {
+        foreach($_POST as $field => $info){
 
-        $_SESSION['goods'][$id] = [
-            'id' => $id,
-            'price' => $product["price_product"],
-            'count' => 1,
-            'name' => $product["name_product"],
+            if(empty($info)){
+                continue;
+            }
 
-        ];
-    }
-    header("location:?p=basket");
+            $info = clearStr($info);
+
+            $sql =  " UPDATE `goods` SET $field='$info' WHERE id_product = '$id'";
+
+            $result = updateBD($sql);
+
+            if ($result){
+                $_SESSION['msg'] = "Товар успешно обновлен";
+                header('location: ' . $_SERVER['HTTP_REFERER']);
+                exit;
+            }
+
+        };
 
 
 
-}
 
 
-function getProductAction($id)
-{
-
-    $sqlForChoosenProduct = "SELECT * FROM `goods` WHERE `goods`.`id_product` = " . '"' . $_GET["id"] . '"';
-
-    $forPicture = mysqli_query(connect(), $sqlForChoosenProduct);
-
-    return $product = mysqli_fetch_assoc($forPicture);
-
-}
-
-function deleteAction()
-{
-
-    session_start();
-    $id = $_GET['id'];
-    $product = getProductAction($id);
-
-    if ($_SESSION['goods'][$id]["count"] > 1) {
-        $_SESSION['goods'][$id]["count"] -= 1;
-
-    } else {
-        unset($_SESSION['goods'][$id]);
     }
 
-    header("location:?p=basket");
-    var_dump($_SESSION);
+    return $ProductTemplate =
+
+        '<div class="card" style="width:35rem" >' .
+
+        '<a class="changePicture" href="?p=goods&a=changePic&id=' . $product["id_product"] .  '">'.
+
+        '<img  class="card-img-top" src="img/' .  $product["img_dir"] . ".jpeg" . '">'.
+
+        "</a>".
+
+        '<form method="post">
+         <div class="card-body">'.
+        '<input name="name_product" type ="text" class="form-control" placeholder="' .  $product["name_product"] . '" >' .
+        '<input name="price_product" type ="number" class="form-control"placeholder="' . $product["price_product"] . '" >' .
+        '<input name="description_short" type ="text" class="form-control"placeholder="' . $product["description_short"] . '" >' .
+        '<input class="comeBackBtn Submit" type="submit" value="Изменить">';
+
+
+        "</form></div>";
 
 
 }
+
+function deleteProductAction(){
+
+    $id = $_GET["id"];
+
+    $sql =  " DELETE FROM `goods`  WHERE id_product = '$id'";
+
+    $result = updateBD($sql);
+
+    if ($result){
+        $_SESSION['msg'] = "Товар успешно удален";
+        header('location: ' . $_SERVER['HTTP_REFERER']);
+        exit;
+    }
+
+
+}
+
+function changePicAction() {
+
+
+    if ($_SERVER['REQUEST_METHOD'] == "POST"){
+
+        $targetDir = "img/";
+        $fileName = basename('image' .$_GET['id'] . '.jpeg');
+        $targetFilePath = $targetDir . $fileName;
+
+        if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
+
+            $_SESSION["msg"] = "Файл успешно загружен";
+            header('location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
+
+        }else{
+            $_SESSION["msg"] = "Возникла ошибка при загрузке файла";
+        }
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+    $id = $_GET["id"];
+    return $content =
+
+        "<form method=\"post\" method=\"post\" enctype=\"multipart/form-data\">
+         <h2>Выбирете картинку для загрузки </h2>
+        <input class=\"forImg\" type=\"file\" name=\"file\"> <br>
+        <input class=\"comeBackBtn\" type=\"submit\" name=\"submit\" value=\"Загрузить\">
+        </form>";
+}
+
+
+
+
+

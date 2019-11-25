@@ -1,49 +1,82 @@
 <?php
 function indexAction()
 {
-    session_start();
-
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        $sql = "SELECT 
-                    id, name, password, login  
-            FROM 
-                 users 
-            WHERE login = '{$_POST['login']}' ";
 
-        $user = [];;
-        if ($res = mysqli_query(connect(), $sql)) {
-            $user = mysqli_fetch_assoc($res);
-            var_dump(password_verify($_POST['password'], $user['password']));
-            if ( password_verify($_POST['password'], $user['password'])) {
-                $_SESSION['login'] = true;
-            }
+        $sqlForUser =  " SELECT  `id` , `name`, `login`, `password`, `role` FROM `users` WHERE login ='$_POST[login]' ";
+
+        $user = get_info_from_DB($sqlForUser);
+
+        if (!$user) {
+
+            $_SESSION["msg"] = "Такой логин не существует";
+
+            header('location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
         }
 
+        if (!password_verify($_POST['password'], $user['password'])) {
 
-    }
-    if (!empty($_SESSION["login"]) && !empty($user)) {
+            $_SESSION["msg"] = "Вы ввели неправильный пароль";
 
-        $content = '<h2> Добро Пожаловать ' . $user['name'] . '</h2>' .
-            '<a href="?p=user&&exit=1">Выйти</a>';
+            header('location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
+        }
 
-    } else {
+        $_SESSION['login'] =  true;
 
-        $content = " <form method=\"post\">
-                        <input name=\"login\" placeholder=\"login\">
-                        <input name=\"password\" placeholder=\"password\">
-                        <input type=\"submit\">
-                    </form> 
-                   <a href=\"?p=user&&a=addUser\"><button>Регистрация</button>  </a>";
+        $_SESSION['id'] = $user["id"];
+
+        if ($user["role"]) {
+            $_SESSION["admin"] = true;
+        }
 
     }
 
     if (!empty($_GET['exit'])) {
         session_destroy();
-        header('Location: ?p=user');
+        header('location: ' . $_SERVER['HTTP_REFERER']);  
+       
+    }
+
+    if (!empty($_SESSION["login"])) {
+
+        if (empty($user))   {
+
+            $sqlForUser =  " SELECT  `name`, `login`, `password`, `role` FROM `users` WHERE id ='$_SESSION[id]' ";
+
+            $user = get_info_from_DB($sqlForUser);
+
+            return $content = '<h2> Вы вошли под логином  ' . $user["login"] . '</h2>' .
+                '<a href="?p=user&&exit=1">Выйти</a>';                                             
+
+        }
+
+        return $content = '<h2> Вы вошли под логином  ' . $user["login"] . '</h2>' .
+            '<a href="?p=user&&exit=1">Выйти</a>';
+
 
     }
-    $html = file_get_contents(dirname(__DIR__) . '/tmpl/galleryView.html');
-    return str_replace('{{pictures}}', $content, $html);
+
+
+    $content = "       <div class='form'> 
+                            <form method=\"post\">
+                                <div class='form-group'> 
+                                <input name=\"login\" placeholder=\"login\">
+                                </div>
+                                <div class='form-group'> 
+                                <input name=\"password\" placeholder=\"password\">
+                                </div>
+                                <input class ='comeBackBtn submitBtn' type=\"submit\">
+                            </form> 
+                        </div>
+                        
+                        <a href=\"?p=user&&a=addUser\"><button class='comeBackBtn formBtn'>Регистрация</button>  </a> 
+                       
+                   
+                  ";
+
+    return $content;
 
 
 }
@@ -52,41 +85,75 @@ function addUserAction()
 {
 
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        $password = password_hash(clearStr($_POST['password']), PASSWORD_DEFAULT);
+
+        if (empty($_POST['name'])) {
+            $_SESSION['msg'] = "Заполните поля чтобы зарегистрироваться";
+            header("location:?p=user&a=addUser");
+            exit;
+
+        }
+
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $login = clearStr($_POST['login']);
-        $name = $_POST['name'];
+        $name = clearStr($_POST['name']);
 
         $sqlToAddUser = "INSERT INTO 
                                     `users` (`name`, `login`, `password`) 
                                     VALUES ( '{$name}', '{$login}', '{$password}')";
 
         $result = mysqli_query(connect(), $sqlToAddUser);
+
+
         if ($result) {
 
-            $content = "<h3>Вы успешно зарегестрированы!</h3>
-                    <a href=?p=user><button>Войти</button></a>";
-
-            $html = file_get_contents(dirname(__DIR__) . '/tmpl/galleryView.html');
-            return str_replace('{{pictures}}', $content, $html);
-
+            $_SESSION['msg'] = "Вы успешно зарегестрированы.Войдите чтобы авторизироваться";
 
         }
     }
 
 
-    $content = " <h3>Для регистрации заполните следующие поля</h3><br>
+    $content = " <div class='form'>
+                    <h3>Для регистрации заполните следующие поля</h3><br>
                      <form method=\"post\">
+                        <div class='form-group'> 
                         <input name=\"name\" placeholder=\"Ваше имя\">
+                        </div>
+                        <div class='form-group'>
                         <input name=\"login\" placeholder=\"Придумайте логин\">
+                        </div>
+                        <div class='form-group'>
                         <input name=\"password\" placeholder=\"Придумайте пароль\">
-                        <input type=\"submit\">
+                        </div>
+                        <div class='form-group'>
+                        <input class='comeBackBtn' type=\"submit\">
+                        </div>
+                        
                     </form> 
+                 </div>
                    ";
 
 
-    $html = file_get_contents(dirname(__DIR__) . '/tmpl/galleryView.html');
-    return str_replace('{{pictures}}', $content, $html);
+    return $content;
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

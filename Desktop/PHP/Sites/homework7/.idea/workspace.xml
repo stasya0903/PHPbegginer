@@ -17,6 +17,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -54,7 +55,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.userLogin.html">
+  <component name="RunManager" selected="PHP Remote Debug.Mamp debug">
     <configuration name="goods.php" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/homework7/engine/page/goods.php" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -69,8 +70,8 @@
     </configuration>
     <list>
       <item itemvalue="JavaScript Debug.goods.php" />
-      <item itemvalue="PHP Remote Debug.Mamp debug" />
       <item itemvalue="JavaScript Debug.userLogin.html" />
+      <item itemvalue="PHP Remote Debug.Mamp debug" />
     </list>
     <recent_temporary>
       <list>
@@ -89,11 +90,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1574022675279</updated>
-      <workItem from="1574022676567" duration="23038000" />
+      <workItem from="1574022676567" duration="23301000" />
+      <workItem from="1574187475869" duration="68622000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/engine/page/user.php</url>
+          <line>43</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
