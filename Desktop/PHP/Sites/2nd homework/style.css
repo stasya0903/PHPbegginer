@@ -1,0 +1,17 @@
+.header{
+	width: 100vw
+	height:15vh;
+	background-color: grey
+}
+.main{
+	width: 100vw
+ height:70vh;
+ background-color: pink;
+}
+
+.footer{
+	width: 100vw
+	height: 15vh
+	background-color: grey
+
+}
