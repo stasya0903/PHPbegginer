@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5d52f8e6-8854-4b6d-8a76-a180a5d1b4ec" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpServers">
+    <servers>
+      <server host="localhost" id="59215543-a6c1-4b87-8d93-d005d9990ed2" name="http://localhost/homework7" use_path_mappings="true">
+        <path_mappings>
+          <mapping local-root="$PROJECT_DIR$" remote-root="/Users/Alena/Desktop/PHP/Sites/homework7" />
+        </path_mappings>
+      </server>
+    </servers>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="MAMP PHP 5.4.10" />
+  <component name="ProjectId" id="1Tl79OskPJtV3KCpW3TEH8YsVoD" />
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.userLogin.html">
+    <configuration name="goods.php" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/homework7/engine/page/goods.php" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="userLogin.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/homework7/engine/tmpl/userLogin.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="Mamp debug" type="PhpRemoteDebugRunConfigurationType" factoryName="PHP Remote Debug" filter_connections="FILTER" server_name="http://localhost/homework7" session_id="PHPSTORM">
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PhpRemoteDebugRunConfigurationType" factoryName="PHP Remote Debug" filter_connections="FILTER" server_name="http://localhost/homework7/public/" session_id="PHPSTORM">
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.goods.php" />
+      <item itemvalue="PHP Remote Debug.Mamp debug" />
+      <item itemvalue="JavaScript Debug.userLogin.html" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.userLogin.html" />
+        <item itemvalue="JavaScript Debug.goods.php" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5d52f8e6-8854-4b6d-8a76-a180a5d1b4ec" name="Default Changelist" comment="" />
+      <created>1574022675279</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1574022675279</updated>
+      <workItem from="1574022676567" duration="23038000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+</project>
